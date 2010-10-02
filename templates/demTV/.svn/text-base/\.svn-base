@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load facebook_tags %}
+
+{% block title %}{{ show.name }}{% endblock %}
+
+{% load comments %}
+
+{% block header %}
+     <script type="text/javascript">
+       function disableReqdInputs(){
+         var nameInput = document.getElementById('id_name');
+         if (nameInput){
+           nameInput.value = "{{ request.user.get_full_name }}";
+           nameInput.readOnly=true;
+         }
+         var emailInput = document.getElementById('id_email');
+         if (emailInput){
+           emailInput.value = "{{ request.user.email }}";
+           emailInput.readOnly=true;
+         }
+       }
+     </script>
+{% endblock %}
+
+{% block body %}
+onload="disableReqdInputs();"
+{% endblock %}
+
+{% block content %}
+
+
+{% url demTvDjango.demTV.views.user show.owner as ownerURL %}
+{% url demTvDjango.demTV.views.timeslot show.time_slot.day.pk, show.time_slot.military_time as timeslotURL %}
+
+Name: {{ show.name }}<br />
+Owner: <a href="{{ ownerURL }}">{{ show.owner }}</a><br />
+Description: {{ show.description }} <br />
+Timeslot for next week: <a href="{{ timeslotURL }}">{{ show.time_slot }}</a><br />
+
+{% if isBroadcasting %}
+show is broadcasting
+<object type="application/x-shockwave-flash" height="295" width="353" id="live_embed_publisher_flash" data="http://www.justin.tv/widgets/live_embed_publisher.swf?channel={{ stream }}" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://www.justin.tv/widgets/		live_embed_publisher.swf" /><param name="flashvars" value="channel={{ stream }}&auto_play=false&start_volume=25&stream_key={{ streamKey }}" /></object>
+{% endif %}
+
+<br />
+<br />
+Comments:
+<br />
+<br />
+
+{% get_comment_list for show as comment_list %}
+{% for comment in comment_list %}
+        {% if forloop.counter <= 5 %}
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ comment }}<br />
+        {% endif %}
+{% endfor %}
+
+<br />
+<br />
+
+{% if baseUser %}
+
+Post a comment:
+<br />
+
+{% render_comment_form for show %}
+
+{% else %}
+You must <a href="{% url django.contrib.auth.views.login %}">login</a> to post comments.
+{% endif %}
+
+{% endblock %}

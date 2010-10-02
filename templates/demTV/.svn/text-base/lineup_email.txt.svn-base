@@ -1,0 +1,12 @@
+Here is the weekly lineup:
+
+{% for time in lineup %}
+    {{ time }} : {{ time.last_week_winner }}
+{% endfor %}
+
+-The buriedTV Team
+
+
+Don't want to receive these emails any longer? Just log into your account and
+edit your profile to not have the 'Email weekly lineup' box checked at
+http://buried.tv

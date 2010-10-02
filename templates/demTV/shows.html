@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load facebook_tags %}
+
+{% block title %}All shows{% endblock %}
+
+{% block content %}
+
+{% for show in shows %}
+
+<a href="{% url demTvDjango.demTV.views.show show.relative_url %}">{{ show.name }}</a> : {{ show.description }}<br /><br />
+
+{% endfor %}
+
+{% endblock %}

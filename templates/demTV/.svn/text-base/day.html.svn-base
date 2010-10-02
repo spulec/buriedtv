@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load facebook_tags %}
+
+{% block title %}Timeslots for {{ day.name }}{% endblock %}
+
+{% block content %}
+
+{% if times %}
+    {{ day }}
+    <ul>
+    {% for time in times %}
+        <li><a href="{% url demTvDjango.demTV.views.timeslot day.pk, time.military_time %}">{{ time }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No timeslots for this day.</p>
+{% endif %}
+
+{% endblock %}

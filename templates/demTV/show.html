@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load facebook_tags %}
+
+{% block title %}{{ show.name }}{% endblock %}
+
+{% block header %}
+     <script type="text/javascript">
+	var s={{ seconds }}; 
+	var m={{ minutes }};	
+	function disableReqdInputs(){
+		var nameInput = document.getElementById('id_name');
+		if (nameInput){
+			nameInput.value = "{{ request.user.username }}";
+			nameInput.readOnly=true;
+		}
+		var emailInput = document.getElementById('id_email');
+		if (emailInput){
+			emailInput.value = "{{ request.user.email }}";
+			emailInput.readOnly=true;
+		}
+	}
+	function startTime() { 
+		s+=1; 
+                if(s>=60){
+			s=0;
+			m+=1;	
+		}
+		if(m>=60){ m=0; }
+                if (s>49){ 
+			document.getElementById('time').innerHTML= (59-m) + ":0" + (59-s); 
+		}else{
+			document.getElementById('time').innerHTML= (59-m) + ":" + (59-s); 
+		}
+		//Reset the page if top of the hour	
+		if (s<1 && m==0){ 
+			window.location.reload(); 
+		} 
+		t=setTimeout('startTime()',1000); 
+	}
+     </script>
+{% endblock %}
+
+{% block bodyTag %}
+onload="disableReqdInputs(); startTime();"
+{% endblock %}
+
+{% block content %}
+
+
+{% url demTvDjango.demTV.views.user show.owner as ownerURL %}
+{% url demTvDjango.demTV.views.timeslot show.time_slot.day.pk, show.time_slot.military_time as timeslotURL %}
+
+Name: {{ show.name }}<br />
+Owner: <a href="{{ ownerURL }}">{{ show.owner }}</a><br />
+Description: {{ show.description }} <br />
+Timeslot for next week: <a href="{{ timeslotURL }}">{{ show.time_slot }}</a><br />
+<a href="{{ timeslotURL }}">Vote</a> for this show.
+
+<br />
+<br />
+{% if isBroadcasting %}
+show is broadcasting<br />
+{{ pubCode|safe }}<br />
+
+Time left:<div id="time"></div><br />
+
+{% endif %}
+
+{% if episodes %}
+Past epsidoes:<br />
+{% endif %}
+{% for episode in episodes %}
+	{{ episode|safe }}<br />
+{% empty %}
+No previous episodes for this show.<br />
+{% endfor %}
+
+{% endblock %}

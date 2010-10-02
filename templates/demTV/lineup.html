@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load facebook_tags %}
+
+{% block title %}This week's lineup{% endblock %}
+
+{% block content %}
+
+{% if lineup %}
+    <ul>
+    {% for time in lineup %}
+        <li>{{ time.timeslot }} : <a href="{% url demTvDjango.demTV.views.show time.show.relative_url %}">{{ time.show }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Error getting lineup.</p>
+{% endif %}
+
+{% endblock %}

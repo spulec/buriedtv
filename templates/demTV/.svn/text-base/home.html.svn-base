@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load facebook_tags %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div id="content">
+<p>
+buriedTV is a new way of television. <strong>You</strong> choose the shows. Every week, you vote for the shows that you want to see. The ones with the most votes are the ones that will get to air the next week.
+</p>
+<h3>OR:</h3>
+<br />
+<p>
+Start your own show and battle for the top spots. Get fame, fans, and fortune. Just make sure to win the most votes each week or risk losing your time slot.	
+</p>
+</div>
+<!-- end #content -->
+
+<div id="sidebar">
+	<ul>
+		<li>
+			<h2>Now Playing:</h2>
+			{% if currShow %}
+				<p><strong><a href="{% url demTvDjango.demTV.views.show currShow.url %}">{{ currShow.name }}</a></strong>: {{ currShow.description }}<br /><a href="/live">Watch it now</a></p>
+			{% else %}
+				<p>No shows currently on</p>
+			{% endif %}
+		</li>
+		<li>
+			<h2>Top Shows</h2>
+			<ul>
+			{% for show in topShows %}
+				<li><span>{{ show.votes }}</span><a href="{% url demTvDjango.demTV.views.show show.relative_url %}">{{ show.name }}</a></li>
+			{% endfor %}					
+			</ul>
+		</li>
+	</ul>
+</div>
+<!-- end #sidebar -->
+
+
+{% endblock %}

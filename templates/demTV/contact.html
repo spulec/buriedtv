@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load facebook_tags %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+
+{% if form %}
+<form action="" method="post">
+{{ form.as_p }}
+<input type="submit" value="Submit" />
+</form>
+{% endif %}
+{{ result }}<br />
+
+<br />
+<br />
+<br />
+
+<p>
+Please also feel free to send any requests to team@buried.tv
+</p>
+
+
+{% endblock %}

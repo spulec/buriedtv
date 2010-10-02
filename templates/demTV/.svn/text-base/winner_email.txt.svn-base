@@ -1,0 +1,9 @@
+Congratulations,
+
+Your show {{ show.name }} will air on {{ timeslot }}. Please make sure to log into 
+
+http://buried.tv{% url demTvDjango.demTV.views.show show.relative_url %}
+
+during this timeslot to broadcast your show.
+
+-The buriedTV Team

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load facebook_tags %}
+
+{% block title %}Live{% endblock %}
+
+{% block header %}
+<script type="text/javascript"> 
+var s={{ seconds }}; 
+var m={{ minutes }};	
+function startTime() { 
+	s+=1;
+	if(s>=60){
+		s=0;
+		m+=1;
+	}
+	if(m>=60){ m = 0;}
+
+	//Reset the page if top of the hour	
+	if (s<1 && m==0){ 
+		window.location.reload(); 
+	} 
+	t=setTimeout('startTime()',1000); 
+}
+</script>
+{% endblock %}
+
+{% block bodyTag %}onload="startTime()"{% endblock %}
+
+{% block content %}
+
+
+
+{% if timeslot %}
+{{ timeslot.last_week_winner }}<br />
+{{ embedCode|safe }}
+{% else %}
+No shows currently on.
+{% endif %}
+
+{% endblock %}

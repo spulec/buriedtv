@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/!svn/ver/1/demTvDjango/demTV/management/commands
+END
+clip_deleter.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/1/demTvDjango/demTV/management/commands/clip_deleter.py
+END
+vote_counter.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/1/demTvDjango/demTV/management/commands/vote_counter.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/1/demTvDjango/demTV/management/commands/__init__.py
+END
+clip_maker.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/!svn/ver/1/demTvDjango/demTV/management/commands/clip_maker.py
+END

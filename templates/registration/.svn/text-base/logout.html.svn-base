@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load facebook_tags %}
+
+{% block content %}
+
+You are logged out.<br />
+
+<a href="{% url django.contrib.auth.views.login %}">Login</a>
+
+{% endblock %}

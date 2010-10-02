@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load facebook_tags %}
+
+{% block title %}Edit profile{% endblock %}
+
+{% block content %}
+
+<a href="{% url demTvDjango.demTV.views.user baseUser %}">View Profile</a>
+
+<form method="post" action="">
+        {% for field in user_form %}
+		{{ field.label_tag}} {{ field }}<br />
+	{% endfor %}
+
+        {% for field in profile_form %}
+		{{ field.label_tag}} {{ field }}<br />
+	{% endfor %}
+
+    {% if result_message %}
+        {{ result_message }}<br />
+    {% endif %}
+
+    <input type="submit" value="Update" />
+</form>
+
+<br />
+
+<a href="{% url demTvDjango.demTV.views.editShows baseUser %}">Edit Your Shows</a><br />
+<a href="{% url django.contrib.auth.views.password_change %}">Change Your Password</a>
+
+
+{% endblock %}
